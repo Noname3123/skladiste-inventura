@@ -1,5 +1,5 @@
 # skladiste-inventura
-Repozitorij za projekt iz kolegija Programiranje za web. Tema je sustav za upravljanje skladištem i inventurom.
+Repozitorij za projekt iz kolegija Programiranje za web. Tema je sustav za upravljanje skladištem i inventurom. Na aplikaciji radi samo Benjamin Jakupović
 ---
 # Glavne funkcionalnosti
 - Korisnik se prijavljuje pomoću korisničkog imena i lozinke
