@@ -1,9 +1,9 @@
 import random
 from django.db import transaction
 from django.core.management.base import BaseCommand
+from django.contrib.auth import get_user_model
 
-
-from skladiste.models import Zaposlenik, Proizvod, Tip_Proizvoda, Jedinica_Mjere
+from skladiste.models import Proizvod, Tip_Proizvoda, Jedinica_Mjere
 
 from skladiste.factory import ZaposlenikFactory, ProizvodFactory, Tip_ProizvodaFactory, Jedinica_MjereFactory
 
@@ -19,19 +19,21 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         #remove old data
         self.stdout.write("Removing data....")
-        models=[Proizvod,Zaposlenik , Tip_Proizvoda, Jedinica_Mjere]
+        models=[Proizvod , Tip_Proizvoda, Jedinica_Mjere]
         for m in models:
             m.objects.all().delete()
+
+        get_user_model().objects.filter(is_staff=False).delete()
 
 
         #generate new data
         self.stdout.write("Generating...")
         try:
             for _ in range(NUM_EMPLOYEE):
-                zaposlenik=ZaposlenikFactory()
+                user=ZaposlenikFactory()
             
             for _ in range(NUM_PRODUCT_CATEGORY):
-                ketegorija_proizvoda=Tip_ProizvodaFactory()
+                kategorija_proizvoda=Tip_ProizvodaFactory()
 
             for _ in range(NUM_MEASURE_UNIT):
                 jedinica_mjere=Jedinica_MjereFactory()
