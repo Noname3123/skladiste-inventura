@@ -1,18 +1,21 @@
 import factory
 from factory.django import DjangoModelFactory
-from skladiste.models import Zaposlenik, Proizvod, Tip_Proizvoda, Jedinica_Mjere
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from skladiste.models import Proizvod, Tip_Proizvoda, Jedinica_Mjere
 
 
 class ZaposlenikFactory(DjangoModelFactory):
     """
-    class which is responsible for creating a "zaposlenik" instance in DB
+    class which is responsible for creating a "user" instance in DB
     """
     class Meta:
-        model=Zaposlenik
+        model=get_user_model()
 
-    korisnicko_ime=factory.Faker("email")
-    ime_zaposlenika=factory.Faker("first_name")
-    prezime_zaposlenika=factory.Faker("last_name")
+    username=factory.Faker("word")
+    email=factory.Faker("email")
+    first_name=factory.Faker("first_name")
+    last_name=factory.Faker("last_name")
 
 
 class Tip_ProizvodaFactory(DjangoModelFactory):
@@ -48,7 +51,7 @@ class ProizvodFactory(DjangoModelFactory):
         jedinicna_cijena=factory.Faker("random_int", min=15, max=23000)
         kolicina=factory.Faker("random_int", min=0, max=1000)
 
-        zaposlenik=factory.Iterator(Zaposlenik.objects.all())
+        zaposlenik=factory.Iterator(get_user_model().objects.all())
         tip_proizvoda=factory.Iterator(Tip_Proizvoda.objects.all())
         jedinica_mjere=factory.Iterator(Jedinica_Mjere.objects.all())
 
