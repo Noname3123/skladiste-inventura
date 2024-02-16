@@ -1,0 +1,22 @@
+{%extends "base.html"%}
+{%block title%} Product Categories {%endblock%}
+{% block content %}
+<h2>Product Categories </h2>
+<table>
+    <tr>
+        <th>Naziv tipa</th>
+        <th>Iznos PDV-a</th>
+    </tr>
+
+    {%for tip in tipovi%}
+    <tr>
+        <td>{{tip.naziv_tipa}}</td>
+        <td>{{tip.iznos_pdv | floatformat:2}}</td>
+    </tr>
+
+
+    {%endfor%}
+
+</table>
+
+{% endblock %}
