@@ -1,0 +1,21 @@
+{%extends "base.html"%}
+{%block title%} Measurement Units {%endblock%}
+{% block content %}
+<h2>Measurement Units </h2>
+<table>
+    <tr>
+        <th>Naziv jedinice</th>
+    </tr>
+
+    {%for jedinica in jedinice%}
+    <tr>
+        <td>{{jedinica.naziv_jedinice}}</td>
+        
+    </tr>
+
+
+    {%endfor%}
+
+</table>
+
+{% endblock %}

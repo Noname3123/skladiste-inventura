@@ -1,0 +1,36 @@
+{%extends "base.html"%}
+{%block title%} Products {%endblock%}
+{% block content %}
+<h2>Products </h2>
+<table>
+    <tr>
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th>Količina</th>
+        <th>Tip proizvoda</th>
+        <th>Jedinica mjere</th>
+        <th>Dodao</th>
+        <th>Jedinična cijena</th>
+        <th>Jedinična PDV osnovica</th>
+        <th>Jedičina ukupna cijena</th>
+    </tr>
+
+    {%for proizvod in proizvodi%}
+    <tr>
+        <td>{{proizvod.naziv_proizvoda}}</td>
+        <td>{{proizvod.opis_proizvoda|truncatewords:8}}</td>
+        <td>{{proizvod.kolicina}}</td>
+        <td>{{proizvod.tip_proizvoda}}</td>
+        <td>{{proizvod.jedinica_mjere}}</td>
+        <td>{{proizvod.zaposlenik}}</td>
+        <td>{{proizvod.jedinicna_cijena | floatformat:2}}</td>
+        <td>{{proizvod.jedinicna_osnovica_pdv | floatformat:2}}</td>
+        <td>{{proizvod.jedinicna_ukupna_cijena | floatformat:2}}</td>
+    </tr>
+
+
+    {%endfor%}
+
+</table>
+
+{% endblock %}
