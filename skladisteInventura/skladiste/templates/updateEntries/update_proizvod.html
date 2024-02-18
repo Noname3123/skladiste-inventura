@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+{%block title%} Edit Product {%endblock%}
+{% block content %}
+<h2>Edit Product </h2>
+
+{%if canEdit == 1 %}
+
+<form method="post">
+ {%csrf_token%}
+ {{form.as_p}}
+ <button type="submit">Save</buttoon>
+</form>
+
+{%else%}
+<p> You cannot edit products which haven't been created by you!</p>
+{%endif%}
+{% endblock %}

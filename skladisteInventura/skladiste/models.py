@@ -36,6 +36,13 @@ class Proizvod(models.Model):
     tip_proizvoda=models.ForeignKey(Tip_Proizvoda,on_delete=models.PROTECT) #you cannot delete employee, it will give ProtectedError (sublcass of django.db.IntegrityError)
     jedinica_mjere=models.ForeignKey(Jedinica_Mjere,on_delete=models.PROTECT) #you cannot delete employee, it will give ProtectedError (sublcass of django.db.IntegrityError)
 
+    def save(self):
+        """
+        Overload of save method, it updates fields zaposlenik, jedinicna_osnovica_pdv and ukupna cijena 
+        """
+        self.jedinicna_osnovica_pdv=self.tip_proizvoda.iznos_pdv * self.jedinicna_cijena
+        self.jedinicna_ukupna_cijena=self.jedinicna_cijena+self.jedinicna_osnovica_pdv
+        super(Proizvod,self).save()
 
     def __str__(self):
         return self.naziv_proizvoda + "-" + self.opis_proizvoda

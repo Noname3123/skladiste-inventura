@@ -1,0 +1,13 @@
+{%extends "base.html"%}
+{%block title%} Delete Product Category{%endblock%}
+{% block content %}
+<h2>Delete Product Category </h2>
+
+<p>Are you sure you want to delete "{{ tip_proizvoda.naziv_tipa }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+        <a href="{%url 'kategorije'%}">Cancel</a>
+    </form>
+
+{% endblock %}

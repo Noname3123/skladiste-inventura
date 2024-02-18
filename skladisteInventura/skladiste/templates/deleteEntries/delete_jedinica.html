@@ -1,0 +1,13 @@
+{%extends "base.html"%}
+{%block title%} Delete Measurement Unit {%endblock%}
+{% block content %}
+<h2>Delete Measurement Unit </h2>
+
+<p>Are you sure you want to delete "{{ jedinica_mjere.naziv_jedinice }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+        <a href="{%url 'jedinice_mjere'%}">Cancel</a>
+    </form>
+    
+{% endblock %}
