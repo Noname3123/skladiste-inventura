@@ -2,9 +2,10 @@
 {%block title%} Products {%endblock%}
 {% block content %}
 <h2>Products </h2>
-<a href={%url 'novi_proizvod'%}>New product</a>
+<a href={%url 'novi_proizvod'%}>New Product</a>
 <table>
     <tr>
+        <th>Opcije</th>
         <th>Naziv</th>
         <th>Opis</th>
         <th>Količina</th>
@@ -18,6 +19,7 @@
 
     {%for proizvod in proizvodi%}
     <tr>
+        <td><a href="{% url 'update_proizvod' proizvod.pk %}">Edit</a> <a href="{% url 'delete_proizvod' proizvod.pk %}">Delete</a></td>
         <td>{{proizvod.naziv_proizvoda}}</td>
         <td>{{proizvod.opis_proizvoda|truncatewords:8}}</td>
         <td>{{proizvod.kolicina}}</td>

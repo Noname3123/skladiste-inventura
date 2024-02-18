@@ -9,6 +9,19 @@
 
 <body>
 <main>
+{%if user.is_authenticated%}
+    <!--buttons for accessing app - should be put in header-->
+    <a href={%url 'proizvodi'%}>Proizvodi</a>
+    <a href={%url 'kategorije'%}>Tipovi proizvoda</a>
+    <a href={%url 'jedinice_mjere'%}>Jedinice mjere</a>
+    <!--//buttons for accessing app - should be put in header-->
+
+    <form action="{% url 'logout'%}" method="post"> <!--form responsible for logging out-->
+        {%csrf_token%}
+        <button type="submit">Log Out</button>
+    </form>
+
+{%endif%}
 {%block content%}
 {%endblock%}
 </main>    

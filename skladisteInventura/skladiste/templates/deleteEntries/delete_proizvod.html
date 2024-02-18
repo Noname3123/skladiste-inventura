@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+{%block title%} Delete Product {%endblock%}
+{% block content %}
+<h2>Delete Product </h2>
+{% if canEdit == 1  %}
+<p>Are you sure you want to delete "{{ proizvod.naziv_proizvoda }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+        <a href="{%url 'proizvodi'%}">Cancel</a>
+    </form>
+    {%else%}
+    <p> You cannot delete products which haven't been created by you!</p>
+    {%endif%} 
+{% endblock %}

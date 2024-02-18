@@ -2,13 +2,17 @@
 {%block title%} Measurement Units {%endblock%}
 {% block content %}
 <h2>Measurement Units </h2>
+<a href={%url 'nova_jedinica'%}>New Unit</a>
 <table>
     <tr>
+        <th>Opcije</th>
         <th>Naziv jedinice</th>
     </tr>
 
     {%for jedinica in jedinice%}
     <tr>
+        <td><a href="{% url 'update_jedinica' jedinica.pk %}">Edit</a> <a href="{% url 'delete_jedinica' jedinica.pk %}">Delete</a></td>
+
         <td>{{jedinica.naziv_jedinice}}</td>
         
     </tr>
