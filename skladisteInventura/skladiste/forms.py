@@ -23,12 +23,15 @@ class ProductAddForm(forms.ModelForm):
 
         self.fields['jedinicna_cijena'].widget.attrs['min'] = 0
         self.fields['kolicina'].widget.attrs['min'] = 0
+        
+        self.fields['jedinicna_cijena'].initial = 0
+        self.fields['kolicina'].initial = 0
 
 
     class Meta:
         model=Proizvod
         exclude=('jedinicna_osnovica_pdv', 'jedinicna_ukupna_cijena')
-        fields=['naziv_proizvoda', 'opis_proizvoda', 'jedinicna_cijena', 'zaposlenik','kolicina', 'tip_proizvoda', 'jedinica_mjere']
+        fields=['naziv_proizvoda', 'opis_proizvoda', 'jedinicna_cijena','kolicina', 'tip_proizvoda', 'jedinica_mjere']
         
     tip_proizvoda= forms.ModelChoiceField(queryset = Tip_Proizvoda.objects.all())
     jedinica_mjere= forms.ModelChoiceField(queryset =Jedinica_Mjere.objects.all())

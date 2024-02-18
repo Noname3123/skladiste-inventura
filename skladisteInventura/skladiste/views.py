@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from skladiste.forms import SignUpForm, ProductAddForm
 from skladiste.models import Proizvod, Tip_Proizvoda, Jedinica_Mjere
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView, ListView
 # Create your views here.
@@ -66,4 +66,24 @@ class ProizvodCreateView(CreateView):
     template_name="addEntries/create_proizvod.html"
     success_url=reverse_lazy('proizvodi')
     
+    def get(self, request):
+        """method called when get is called on view. It returns to home screen if user is not logged in
+        """
+        if not (request.user.is_authenticated):
+            return redirect("home")
+        
+        else:
+            return super().get(request=request)
+    
+    def post(self, request, *args, **kwargs):
+        form=self.form_class(request.POST)
+        if form.is_valid():
+            obj=form.save(commit=False)
+            obj.zaposlenik=request.user
+            obj.save()
+            
+            return super(ProizvodCreateView, self).form_valid(form)
+        
+        
+        return render(request, self.template_name, {"form":form})
     
