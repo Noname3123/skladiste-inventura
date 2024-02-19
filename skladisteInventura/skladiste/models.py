@@ -19,6 +19,16 @@ class Tip_Proizvoda(models.Model):
     naziv_tipa=models.CharField( max_length=100)
     iznos_pdv=models.FloatField()
 
+
+    def save(self):
+        """ 
+            Overload of save method. Updates all products of this category after changing values. This is done due to the calculated fields of entity Proizvod
+        """
+        products=Proizvod.objects.filter(tip_proizvoda=self)
+        for i in products:
+            i.save()
+        super(Tip_Proizvoda,self).save()
+
     def __str__(self):
         return self.naziv_tipa
     

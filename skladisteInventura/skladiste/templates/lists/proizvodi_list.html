@@ -3,6 +3,14 @@
 {% block content %}
 <h2>Products </h2>
 <a href={%url 'novi_proizvod'%}>New Product</a>
+
+<form method="post">
+    {% csrf_token %}
+    <h4>Filter:</h4>
+    {{form.as_p}}
+    
+    <button type="submit">Apply</button>
+</form>    
 <table>
     <tr>
         <th>Opcije</th>
@@ -30,7 +38,8 @@
         <td>{{proizvod.jedinicna_osnovica_pdv | floatformat:2}}</td>
         <td>{{proizvod.jedinicna_ukupna_cijena | floatformat:2}}</td>
     </tr>
-
+    {%empty%}
+    <p><strong>Product list empty!</strong><p>
 
     {%endfor%}
 

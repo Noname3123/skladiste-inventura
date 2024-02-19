@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
-from skladiste.forms import SignUpForm, UnitsForm, ProductForm, CategoryForm
+from skladiste.forms import SignUpForm, UnitsForm, ProductForm, CategoryForm, ProductFilterForm
 from skladiste.models import Proizvod, Tip_Proizvoda, Jedinica_Mjere
 from django.urls import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.db.models import Q, ProtectedError
+import operator
+from functools import reduce
+from django.contrib import messages
 # Create your views here.
 
 class HomePage(TemplateView):
@@ -21,6 +25,22 @@ class ProizvodView(ListView):
     template_name='lists/proizvodi_list.html'
     context_object_name='proizvodi'
 
+    #list containing filters received from form
+    filter_list=[]
+    
+    def get_queryset(self):
+        query = super().get_queryset()
+        if len(self.filter_list)>0:
+            query=query.filter(reduce(operator.and_,self.filter_list))
+            self.filter_list.clear()
+        return query
+     
+    def get_context_data(self, **kwargs):
+        context = super(ProizvodView, self).get_context_data(**kwargs)
+        context['form'] = ProductFilterForm()
+        return context       
+    
+    
     def get(self, request):
         """method called when get is called on view. It returns to home screen if user is not logged in
         """
@@ -29,6 +49,24 @@ class ProizvodView(ListView):
         
         else:
             return super().get(request=request)
+    
+    def post(self, request, *args, **kwargs):
+        
+        
+        if request.POST.get('product_name',"")!="":
+            self.filter_list.append(Q(naziv_proizvoda__icontains=request.POST['product_name']))
+            
+        if request.POST.get('product_qty', "")!="":
+            self.filter_list.append(Q(kolicina=request.POST['product_qty']))
+            
+        if request.POST.get('product_category', "")!="":
+            self.filter_list.append(Q(tip_proizvoda=request.POST['product_category']))
+            
+        if request.POST.get('product_only_user','off')=='on':
+            self.filter_list.append(Q(zaposlenik=request.user))
+        
+        
+        return render(request=request, template_name=self.template_name,context={'form':ProductFilterForm(request.POST), 'proizvodi': self.get_queryset()})
 
 class TipProizvodaView(ListView):
     model=Tip_Proizvoda
@@ -143,6 +181,7 @@ class ProizvodDeleteView(DeleteView):
         
         else:
             return super().get(request=request)
+        
       
 
     
@@ -201,6 +240,14 @@ class TipProizvodDeleteView(DeleteView):
         
         else:
             return super().get(request=request)
+    
+    def post(self, request,pk):
+        
+        try:
+            return super().post(request=request)
+        except ProtectedError as error:
+            messages.error(request=request, message="Cannot delete entry because it is referenced in another table!")
+            return render(request=request,template_name=self.template_name)
       
       
 class MjeraCreateView(CreateView):
@@ -258,3 +305,10 @@ class MjeraDeleteView(DeleteView):
         else:
             return super().get(request=request)
       
+    def post(self, request,pk):
+        
+        try:
+            return super().post(request=request)
+        except ProtectedError as error:
+            messages.error(request=request, message="Cannot delete entry because it is referenced in another table!")
+            return render(request=request,template_name=self.template_name)

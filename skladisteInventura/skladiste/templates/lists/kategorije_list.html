@@ -18,7 +18,8 @@
         <td>{{tip.naziv_tipa}}</td>
         <td>{{tip.iznos_pdv | floatformat:2}}</td>
     </tr>
-
+    {%empty%}
+    <p><strong>Category list empty!</strong><p>
 
     {%endfor%}
 

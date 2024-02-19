@@ -6,7 +6,9 @@
 <form method="post">
   {% csrf_token %}
   {{ form }}
+  <br>
   <button type="submit">Log In</button>
+  <br>
   <a href="{% url 'signup' %}">Create new account</a>
 </form>
 {% endblock %}
