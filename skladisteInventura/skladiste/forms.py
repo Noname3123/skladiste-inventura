@@ -83,4 +83,4 @@ class ProductFilterForm(forms.Form):
     product_name=forms.CharField(label="Product Name", max_length=250, required=False)
     product_category=forms.ModelChoiceField(queryset=Tip_Proizvoda.objects.all(),label="Product Category", required=False)
     product_qty=forms.IntegerField(label="Product Quantity",required=False)
-    product_only_user=forms.BooleanField(label="Show only products created by", required=False)
+    product_only_user=forms.BooleanField(label="Show only products created by currently logged in user", required=False)
