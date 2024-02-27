@@ -72,3 +72,15 @@ class UnitsForm(forms.ModelForm):
     class Meta:
         model=Jedinica_Mjere
         fields=['naziv_jedinice']
+
+
+
+class ProductFilterForm(forms.Form):
+    """class which represents a form for filtering products
+    """
+    
+    
+    product_name=forms.CharField(label="Product Name", max_length=250, required=False)
+    product_category=forms.ModelChoiceField(queryset=Tip_Proizvoda.objects.all(),label="Product Category", required=False)
+    product_qty=forms.IntegerField(label="Product Quantity",required=False)
+    product_only_user=forms.BooleanField(label="Show only products created by currently logged in user", required=False)

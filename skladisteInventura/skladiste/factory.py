@@ -57,3 +57,22 @@ class ProizvodFactory(DjangoModelFactory):
 
         jedinicna_osnovica_pdv=factory.LazyAttribute(lambda o: o.tip_proizvoda.iznos_pdv)
         jedinicna_ukupna_cijena=factory.LazyAttribute(lambda o: o.jedinicna_osnovica_pdv + o.jedinicna_cijena)
+        
+class ProizvodTestFactory(DjangoModelFactory):
+        """
+        class which is responsible for creating a "Proizvod" instance in test DB
+        """
+        class Meta:
+            model=Proizvod
+        
+        naziv_proizvoda=factory.Faker("sentence",nb_words=3)
+        opis_proizvoda=factory.Faker("paragraph", nb_sentences=4)
+        jedinicna_cijena=factory.Faker("random_int", min=15, max=23000)
+        kolicina=factory.Faker("random_int", min=0, max=1000)
+
+        zaposlenik=factory.Iterator(get_user_model().objects.all())
+        tip_proizvoda=factory.Iterator(Tip_Proizvoda.objects.all())
+        jedinica_mjere=factory.Iterator(Jedinica_Mjere.objects.all())
+
+        jedinicna_osnovica_pdv=factory.LazyAttribute(lambda o: 0)
+        jedinicna_ukupna_cijena=factory.LazyAttribute(lambda o: 0)
