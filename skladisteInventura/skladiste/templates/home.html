@@ -9,8 +9,17 @@
 
 
 {% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a>
-<a href="{% url 'signup' %}">Create new account</a>
+<div class="card mx-auto" style="width: 18rem; ">
+    
+    <div class="card-body">
+        <p class="card-text">You are not logged in!</p>
+        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+        <a href="{% url 'signup' %}" class="btn btn-primary">Create new account</a>
+      </div>
+    
+    
+</div>
+
+
 {% endif %}
 {% endblock %}

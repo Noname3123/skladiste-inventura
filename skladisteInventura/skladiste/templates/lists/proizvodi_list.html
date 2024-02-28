@@ -2,32 +2,42 @@
 {%block title%} Products {%endblock%}
 {% block content %}
 <h2>Products </h2>
-<a href={%url 'novi_proizvod'%}>New Product</a>
 
-<form method="post">
-    {% csrf_token %}
-    <h4>Filter:</h4>
-    {{form.as_p}}
+<div class="card " style="width: 30rem; ">
     
-    <button type="submit">Apply</button>
-</form>    
-<table>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <h4>Filter:</h4>
+            {{form.as_p}}
+            
+            <button type="submit" class="btn btn-secondary">Apply</button>
+        </form>    
+      </div>
+    
+    
+</div>
+
+<div class="card">
+    <div class="card-body">
+<a href={%url 'novi_proizvod'%} class="btn btn-primary">New Product</a>
+<table class="table">
     <tr>
-        <th>Opcije</th>
-        <th>Naziv</th>
-        <th>Opis</th>
-        <th>Količina</th>
-        <th>Tip proizvoda</th>
-        <th>Jedinica mjere</th>
-        <th>Dodao</th>
-        <th>Jedinična cijena</th>
-        <th>Jedinična PDV osnovica</th>
-        <th>Jedičina ukupna cijena</th>
+        <th scope="col">Opcije</th>
+        <th scope="col">Naziv</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Količina</th>
+        <th scope="col">Tip proizvoda</th>
+        <th scope="col">Jedinica mjere</th>
+        <th scope="col">Dodao</th>
+        <th scope="col">Jedinična cijena</th>
+        <th scope="col">Jedinična PDV osnovica</th>
+        <th scope="col">Jedičina ukupna cijena</th>
     </tr>
 
     {%for proizvod in proizvodi%}
     <tr>
-        <td><a href="{% url 'update_proizvod' proizvod.pk %}">Edit</a> <a href="{% url 'delete_proizvod' proizvod.pk %}">Delete</a></td>
+        <td><a href="{% url 'update_proizvod' proizvod.pk %}" class="btn btn-secondary">Edit</a> <a href="{% url 'delete_proizvod' proizvod.pk %}" class="btn btn-danger">Delete</a></td>
         <td>{{proizvod.naziv_proizvoda}}</td>
         <td>{{proizvod.opis_proizvoda|truncatewords:8}}</td>
         <td>{{proizvod.kolicina}}</td>
@@ -44,5 +54,8 @@
     {%endfor%}
 
 </table>
+
+</div>
+</div>
 
 {% endblock %}
