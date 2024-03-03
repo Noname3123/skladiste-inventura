@@ -1,6 +1,8 @@
 {%extends "base.html"%}
 {%block title%} Edit Product {%endblock%}
 {% block content %}
+<div class="card mx-auto">
+    <div class="card-body">
 <h2>Edit Product </h2>
 
 {%if canEdit == 1 %}
@@ -8,10 +10,16 @@
 <form method="post">
  {%csrf_token%}
  {{form.as_p}}
- <button type="submit">Save</buttoon>
+ <button type="submit" class="btn btn-primary">Save</button>
+ <a href={%url 'proizvodi'%} class="btn btn-secondary">Cancel</a>
+
 </form>
 
 {%else%}
 <p> You cannot edit products which haven't been created by you!</p>
+<a href={%url 'proizvodi'%} class="btn btn-secondary">Cancel</a>
+
 {%endif%}
+</div>
+</div>
 {% endblock %}

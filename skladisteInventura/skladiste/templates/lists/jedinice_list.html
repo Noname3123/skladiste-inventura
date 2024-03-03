@@ -2,16 +2,18 @@
 {%block title%} Measurement Units {%endblock%}
 {% block content %}
 <h2>Measurement Units </h2>
-<a href={%url 'nova_jedinica'%}>New Unit</a>
-<table>
+<div class="card">
+<div class="card-body">
+<a href={%url 'nova_jedinica'%} class="btn btn-primary">New Unit</a>
+<table class="table">
     <tr>
-        <th>Opcije</th>
-        <th>Naziv jedinice</th>
+        <th class="col">Opcije</th>
+        <th class="col">Naziv jedinice</th>
     </tr>
 
     {%for jedinica in jedinice%}
     <tr>
-        <td><a href="{% url 'update_jedinica' jedinica.pk %}">Edit</a> <a href="{% url 'delete_jedinica' jedinica.pk %}">Delete</a></td>
+        <td><a href="{% url 'update_jedinica' jedinica.pk %}" class="btn btn-secondary">Edit</a> <a href="{% url 'delete_jedinica' jedinica.pk %}" class="btn btn-danger">Delete</a></td>
 
         <td>{{jedinica.naziv_jedinice}}</td>
         
@@ -23,5 +25,8 @@
     {%endfor%}
 
 </table>
+</div>
+</div>
+
 
 {% endblock %}

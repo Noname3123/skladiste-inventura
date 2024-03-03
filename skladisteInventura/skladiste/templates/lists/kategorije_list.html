@@ -2,18 +2,20 @@
 {%block title%} Product Categories {%endblock%}
 {% block content %}
 <h2>Product Categories </h2>
-<a href={%url 'novi_tip'%}>New Category</a>
 
-<table>
+<div class="card">
+<div class="card-body">
+<a href={%url 'novi_tip'%} class="btn btn-primary">New Category</a>
+<table class="table">
     <tr>
-        <th>Opcije</th>
-        <th>Naziv tipa</th>
-        <th>Iznos PDV-a</th>
+        <th scope="col">Opcije</th>
+        <th scope="col">Naziv tipa</th>
+        <th scope="col">Iznos PDV-a</th>
     </tr>
 
     {%for tip in tipovi%}
     <tr>
-        <td><a href="{% url 'update_tip' tip.pk %}">Edit</a> <a href="{% url 'delete_tip' tip.pk %}">Delete</a></td>
+        <td><a href="{% url 'update_tip' tip.pk %}" class="btn btn-secondary">Edit</a> <a href="{% url 'delete_tip' tip.pk %}" class="btn btn-danger">Delete</a></td>
 
         <td>{{tip.naziv_tipa}}</td>
         <td>{{tip.iznos_pdv | floatformat:2}}</td>
@@ -24,5 +26,7 @@
     {%endfor%}
 
 </table>
+</div>
+</div>
 
 {% endblock %}

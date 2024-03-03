@@ -1,7 +1,12 @@
 {%extends "base.html"%}
 {%block title%} Delete Product Category{%endblock%}
 {% block content %}
-<h2>Delete Product Category </h2>
+
+
+
+<div class="card">
+    <div class="card-body">
+<h2 class="card-title">Delete Product Category </h2>
 
 {% if messages %}
 <ul class="messages">
@@ -18,8 +23,10 @@
 <p>Are you sure you want to delete "{{ tip_proizvoda.naziv_tipa }}"?</p>
     <form method="post">
         {% csrf_token %}
-        <input type="submit" value="Confirm Delete">
-        <a href="{%url 'kategorije'%}">Cancel</a>
+        <input type="submit" value="Confirm Delete" class="btn btn-danger">
+        <a href="{%url 'kategorije'%}" class="btn btn-secondary">Cancel</a>
     </form>
+<div>
+    <div>
 {%endif%}
 {% endblock %}
